@@ -1,0 +1,6 @@
+{
+  "template": "<Repo-setup commit this repo was last set up or updated from>",
+  "mode": "full",
+  "modules": [],
+  "updated": "YYYY-MM-DD"
+}

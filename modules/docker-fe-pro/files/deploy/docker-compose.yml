@@ -1,0 +1,18 @@
+# Run from /srv/stacks/{{NAME}}/repo/deploy on fe-pro:
+#   docker compose -f docker-compose.yml up -d --build
+services:
+  {{NAME}}:
+    build: { context: .., dockerfile: deploy/Dockerfile }
+    container_name: {{NAME}}
+    env_file: /srv/stacks/{{NAME}}/{{NAME}}.env
+    volumes:
+      - /srv/stacks/{{NAME}}/data:/data
+    ports:
+      # Loopback only -- never 0.0.0.0. The app relies on Tailscale as its
+      # reachability boundary; widening this bind changes that security model
+      # (see CLAUDE.md's deploy/ entry and the tripwire).
+      - "127.0.0.1:{{PORT}}:{{PORT}}"
+    restart: unless-stopped
+    # Docker's default is 10s. Raise it if the app stops background work
+    # cleanly on SIGTERM and that can take longer.
+    stop_grace_period: {{STOP_GRACE, e.g. 10s}}

@@ -1,0 +1,10 @@
+# Install to /etc/systemd/system/{{NAME}}-backup.service, paired with
+# {{NAME}}-backup.timer (which triggers this; do not `enable` this unit
+# directly). Runs as finne -- the data is owned by uid 1000 on the host.
+[Unit]
+Description={{NAME}} database backup (VACUUM INTO, {{RETENTION_DAYS}}-day retention)
+
+[Service]
+Type=oneshot
+User=finne
+ExecStart=/srv/stacks/{{NAME}}/repo/deploy/backup.sh

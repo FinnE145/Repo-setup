@@ -1,0 +1,12 @@
+# Install to /etc/systemd/system/{{NAME}}-backup.timer alongside the service:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now {{NAME}}-backup.timer
+[Unit]
+Description=Daily timer for {{NAME}} database backup
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target

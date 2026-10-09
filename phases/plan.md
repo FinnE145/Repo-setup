@@ -1,0 +1,43 @@
+# Plan phase
+
+Finn is brain-dumping a feature; you turn it into a committed, fully-decided spec at `docs/specs/<feature>.md`. That spec is the sole implementation prompt later — complete enough that an implement session can start from just "go look at `docs/specs/<feature>.md`". You build it *with* Finn; you do not decide it for him.
+
+The `/flow plan` argument is the brain-dump / feature idea. Treat it as the opening of the planning conversation, not a full spec.
+
+## First action: check the model
+Plan runs on **Opus** — any Opus version; check the family, not the version string. Check this *before anything else* — before the branch, before reading a single file. Read it straight off the environment block in your system prompt ("You are powered by the model named…"). **No command — don't shell out for this.**
+
+If it isn't Opus, **stop right there**: say which model you're on and that Plan wants Opus, and do nothing else — no branch check, no orientation, no scanning the codebase. Wait for Finn to switch models or tell you to carry on.
+
+That block is written at session start, so it's a *fresh-session* check. If Finn has switched models mid-session it can be stale — so if he says he's already on Opus and the block disagrees, take his word and carry on. Never stop him twice for the same check.
+
+## Then: load the repo's flow context
+1. Read `.claude/flow.json`. If it's missing, stop: this repo hasn't been set up — offer `/flow setup`. If its `mode` is `lite`, stop and say so: this repo runs the lite setup, with no phases, specs or roadmap. Ask whether to carry on anyway or upgrade it with `/flow update`.
+2. For each entry in its `modules` that has a `modules/<name>/phase-notes.md` in this skill's folder, read that file's **Plan** section, if it has one. Module notes add to this file; where they conflict, the module notes win.
+3. If the repo has `.claude/flow/plan.md`, read it. Its rules add to this file's; where the two conflict, the project file wins, because it was written for this repo.
+4. Any CLAUDE.md value a later step needs (a command, the dev port) that is missing or still reads `{{…}}` counts as absent — when you reach that step, name it and ask rather than guessing.
+
+## Then settle the branch
+Before reading any code, confirm where this work lives — a fresh session inherits whatever branch was last checked out, likely the wrong one.
+1. Check `git branch --show-current`.
+2. Propose a fresh `feat/<slug>` cut from up-to-date `main` (derive `<slug>` from the feature; confirm it), or a switch to the existing branch this belongs on. **When the work is a roadmap step, the slug ends with that step's letter** — e.g. `feat/entity-pages-K`, `feat/better-search-L`. Non-roadmap work carries no suffix.
+   - **One branch per letter, and a sub-letter stays on its letter's branch.** L2 is planned, built and verified on `feat/better-search-L`, not on a new `feat/…-L2`. A sub-letter is follow-up work on a step that already landed, so keeping it on the same branch keeps that step's whole history in one place. It still gets its own spec, its own three phases and its own commits.
+3. Wait for Finn's OK, then dive in.
+
+The spec is the **first commit of the step** (on a fresh branch, the branch's first commit); implementation commits stack on top later.
+
+## How to ask
+- **Question-driven, no assumptions.** Never decide anything Finn hasn't stated — scope, UX, data model, permissions, naming, all of it. If something's undefined, ask.
+- **Batch foreseeable questions up front** as one numbered list — everything you can already see needing a decision from the brain-dump. Reserve trickled, one-off questions for things that genuinely only surface later in the conversation. It's fine to think you're done and surface more — say "last batch…" as many times as needed; Finn won't mind.
+- Number questions (sub-letters when nesting: 1, 2a, 2b). If a message mixes discussion points with questions, letter the points (A, B, C) and number the questions (1, 2, 3).
+- Prefer asking Finn over reading large, token-expensive docs. If CLAUDE.md names a constraints doc for an external service or API, check it before proposing anything that reads or writes through that service — flag any hard limit rather than designing around it.
+
+## Writing the spec
+- Only start writing once there is **nothing left to decide**.
+- **Say up front whether this came from the roadmap.** Every spec's header states its provenance in one line: either *"Step X of `docs/Planning/roadmap.md`."* (read that step's section first — it carries measured facts and already-resolved decisions, and note in the spec anywhere planning contradicted it) or *"Not a roadmap step — standalone."* Verify's finish-up reads that line to decide whether to check a step off, so it can't be left implicit. If a brain-dump obviously *is* a roadmap step but Finn didn't say so, ask.
+- **Every spec carries a `## Tests` section**, naming what the suite should assert about this feature — the clauses worth pinning, not a test plan. **Where a clause replaces an existing rule, name the rule it replaces**, not just the new one: a section naming only the new rule leaves the fixture free to agree with the old one, which is how a test that cannot fail gets written from a perfectly correct spec. It may legitimately say **"none — <reason>"** (e.g. "none — templates and styling only"); a section that can honestly be empty is not box-ticking, whereas one that must always list something becomes ritual. This is deliberately redundant with the Verify gate rather than elegant: a single point of failure is what it avoids.
+- **No "Open questions" section.** The spec ships fully decided. Anything you'd park there is a question to ask now, in chat.
+- Per-feature extra files (sub-specs, notes) go in `docs/<feature>/`, referenced from the spec.
+- Commit the spec (in Finn's name, when he asks) as the branch's **first** commit. Don't push.
+- **If this session started a dev server at any point (e.g. to check current behavior while shaping the spec), stop it once the commit lands.** Don't leave the dev port (CLAUDE.md → Commands) occupied for whatever session comes next.
+- **Planning routinely produces edits outside the spec** — a new roadmap step, a correction to an existing doc, a skill or `CLAUDE.md` change, and always **the new spec's row in the roadmap's *Spec index*** (every spec gets one as it is written; it is easy to forget, and it has been forgotten). Those never join the spec commit: they land as a **second commit at the end of the plan phase**, so a step's first commit is always exactly the spec and nothing else.
