@@ -8,7 +8,8 @@ Setup reads this index, then only the `MODULE.md` of each module that applies. E
 | `dev-server` | a local server or other port-listening process runs during development | — |
 | `frontend` | there's a UI someone looks at (not a headless bridge, CLI or library) | — |
 | `protected-data` | the code touches something that must never be corrupted (hand-made data, a live account it can write to, a device), or an external API with hard limits | Plan, Implement, Verify |
-| `docker-fe-pro` | it deploys to `fe-pro` as a Docker stack | — |
+| `fe-pro` | it runs on or deploys to `fe-pro` (any way — stack, host service, the machine's own interfaces) | — |
+| `docker-fe-pro` | it deploys to `fe-pro` as a Docker stack (requires `fe-pro`) | — |
 | `team` | the repo is shared with other people | Plan, Verify |
 
 New modules (firmware, another language, another deploy target) usually arrive through `/flow harvest`, once a repo has worked out its conventions.

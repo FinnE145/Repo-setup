@@ -2,8 +2,10 @@
 
 **Applies when** the project is deployed to `fe-pro`, Finn's home server, as a Docker stack. Distilled from Symr's hosting step, which is the worked example.
 
-## The machine — conventions this module relies on
-**`~/SERVER.md` on `fe-pro` is authoritative over this summary.** Before writing any deploy file, read it (`ssh fe-pro cat ~/SERVER.md`, with Finn's OK) and trust it wherever it disagrees with the list below.
+**Requires the `fe-pro` module**, which carries the machine-wide rules (read `SERVER.md` first and keep it updated, UTC, `sudo` is Finn's). Setup adds both.
+
+## The stack conventions this module relies on
+**`~/SERVER.md` on `fe-pro` is authoritative over this summary.** Before writing any deploy file, read it (as the `fe-pro` section of CLAUDE.md says) and trust it wherever it disagrees with the list below.
 - Ubuntu 24.04 LTS, reached over Tailscale as `fe-pro`. Finn's user `finne` is uid:gid `1000:1000` and in the `docker` group.
 - **One directory per service: `/srv/stacks/<name>/`**, holding `repo/` (the git clone), `<name>.env` (mode 600, never in git) and `data/` (bind-mounted to `/data` in the container). Creating it is the one `sudo` step; it is then `chown`ed to `1000:1000` so deploys never need `sudo`.
 - A service built from source keeps its compose file in `repo/deploy/`, versioned with the code it builds — not at the stack root, where it would be a second copy free to disagree with git.

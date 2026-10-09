@@ -29,7 +29,7 @@ The core questions:
 7. **Is there anything real it must never corrupt** — a database of hand-made data, a live account it holds write access to, a device — and any external API with hard limits? (protected-data module.)
 8. **Dev server:** run command, port, and whether the port is fixed by something external. (dev-server module.)
 9. **Tests:** the test command if it differs from the module default, or "none yet".
-10. **Deploy target:** none, Docker on `fe-pro` (docker-fe-pro module), or something else — describe it.
+10. **Deploy target:** none, Docker on `fe-pro` (docker-fe-pro module, plus fe-pro), or something else — describe it. Anything that runs on or deploys to `fe-pro` at all adds the `fe-pro` module.
 11. **Anything that's always true about this repo** a fresh session must know — invariants, traps, things already decided.
 
 ## 4. Propose, then wait
