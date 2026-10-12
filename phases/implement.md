@@ -5,7 +5,7 @@ You build the feature from its spec at `docs/specs/<feature>.md`. You are **not 
 ## First action: check the model
 Implement runs on **Sonnet** — any Sonnet version; check the family, not the version string. Check this *before anything else* — before resolving the spec, before the branch, before reading a single file. Read it straight off the environment block in your system prompt ("You are powered by the model named…"). **No command — don't shell out for this.**
 
-If it isn't Sonnet, **stop right there**: say which model you're on and that Implement wants Sonnet, and do nothing else — no spec resolution, no branch check, no orientation, no scanning the codebase. Wait for Finn to switch models or tell you to carry on.
+If it isn't Sonnet, **stop right there**: say which model you're on and that Implement wants Sonnet, and do nothing else — no spec resolution, no branch check, no orientation, no scanning the codebase. Wait for Finn to switch models or tell you to carry on. **End that message by asking him to reply "switched"**, not by telling him to re-run the command. He switches models in the app's picker and carries on in the same chat, and a message that ends on "reply *switched*" makes the chat bar's suggested reply more likely to be that one word. Once he says it, go straight on with the phase.
 
 That block is written at session start, so it's a *fresh-session* check. If Finn has switched models mid-session it can be stale — so if he says he's already on Sonnet and the block disagrees, take his word and carry on. Never stop him twice for the same check.
 
@@ -36,6 +36,8 @@ If the port is occupied, **stop and flag it to Finn before writing any code** �
 
 ## While building
 - **Ask live, one at a time, for anything the spec didn't decide.** The spec is meant to be complete; when a real choice surfaces mid-implementation that it didn't cover, stop and ask rather than deciding yourself. Anything you *could* have foreseen from reading the spec, ask together up front instead of trickling it.
+- **Put only outward behaviour to Finn** — what the user sees, what the code does on the machine, security. He doesn't read the tests, so test-level and edge-boundary details (is the bound `>=`?) and bounds on config values are yours: decide, say which way you went in one line, don't ballot them.
+- **When what you built departs from the spec** (a stricter loader, a bound the spec left open, a boundary that contradicts one of its own tests), write the departure back into the spec in the same piece of work: a short dated "Where the implementation departed" list near the top plus the in-line fix, so the spec stays the authority for what shipped.
 - **One try, then ask.** If an approach fails on the first attempt, stop and ask — no second approach, no layered hacky workarounds. Surface the problem.
 - Number questions (sub-letters when nesting). KISS everywhere except security and the hard requirement in CLAUDE.md's *Keep It Simple* (if it names one), which get done fully and properly.
 

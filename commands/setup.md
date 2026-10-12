@@ -54,6 +54,8 @@ List, one line each: the mode, the modules, and every file you'll create or chan
 - Commit only when Finn asks, whole files, in his name only — no Claude/AI attribution. Don't push. If he says finish up, `git merge --ff-only` into `main` and push (if there's a remote) — the same rules as Verify's finish-up. (In a shared repo, push the branch and offer a pull request instead.)
 
 ## 7. Hand off
-Tell Finn how to start, in two or three lines:
+**When source material enters the repo** (setup, or any later "here are my notes"), show Finn where each item landed before finishing: a roadmap step, a feature idea, CLAUDE.md, a reference doc, or "dropped, by Finn's call". Show him what was and wasn't saved, rather than asking him to re-read everything. Summarising in chat what landed where is fine; what gets saved in the repo is the source's content, not a summary of it.
+
+Then tell Finn how to start, in two or three lines:
 - **Full:** the first feature is `/flow plan <brain-dump>`. If the roadmap is empty, a plan session can start by drafting its first steps with him. On an existing codebase with tests to write and no trustworthy specs, mention that `lessons/testing.md` recommends auditing specs before writing specification tests.
 - **Lite:** nothing to invoke — CLAUDE.md does the work. `/flow update` can upgrade to full later.
