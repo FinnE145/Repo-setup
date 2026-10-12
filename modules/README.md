@@ -5,7 +5,7 @@ Setup reads this index, then only the `MODULE.md` of each module that applies. E
 | module | applies when | phase-notes |
 |---|---|---|
 | `python` | the project's code is Python | Implement, Verify |
-| `dev-server` | a local server or other port-listening process runs during development | — |
+| `dev-server` | a local server or other port-listening process runs during development | Plan, Implement, Verify |
 | `frontend` | there's a UI someone looks at (not a headless bridge, CLI or library) | — |
 | `protected-data` | the code touches something that must never be corrupted (hand-made data, a live account it can write to, a device), or an external API with hard limits | Plan, Implement, Verify |
 | `fe-pro` | it runs on or deploys to `fe-pro` (any way — stack, host service, the machine's own interfaces) | — |
