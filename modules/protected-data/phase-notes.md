@@ -3,6 +3,7 @@
 Read only the section for the phase you're in. "The real thing" is whatever CLAUDE.md's hard requirement names.
 
 ## Plan
+- When a design depends on behaviour of the real thing that nobody has measured, don't design from a guess: propose measuring it, with Finn's explicit permission before anything is invoked on the real thing, every time. The result goes in the constraints doc, dated. If the tests use a fake, it reproduces the measured result.
 - A feature that writes to the real thing gets its write path named in the spec — which module does it, and what it must never do — and its Tests section names the invariant to assert, not just the happy path.
 
 ## Implement
