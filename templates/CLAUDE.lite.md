@@ -20,6 +20,7 @@ This repo runs the **lite** setup: no Plan/Implement/Verify phases, no specs, no
 
 ## Code Hygiene
 - **Comments explain *why*, not *what*** — most of the valuable ones record a failure that actually happened. Never strip them to "clean up".
+- **Placeholders for personal identifiers in docs** — contact/sender names, Wi-Fi SSIDs, MAC addresses and the like. The repo, and anyone reading it, doesn't need them to understand anything.
 - **TODOs stay rare** (aim for none), with zero `FIXME`/`HACK`/`XXX` and no commented-out code.
 
 ## Commands
@@ -40,7 +41,7 @@ A test's whole value is whether it can **fail**. Ask of each test what a wrong i
 - Prefer asking me over reading large, token-expensive docs. Only open those if I point you to them or say broader context is needed.
 
 ## When Asking Questions
-- Always **number** questions (use sub-letters when nesting, e.g. 1, 2a, 2b) so I can reply item-by-item. This applies to any list I'll respond to point-by-point; plain prose replies don't need identifiers.
+- Always **number** questions (use sub-letters when nesting, e.g. 1, 2a, 2b) so I can reply item-by-item. This applies to any list I'll respond to point-by-point; plain prose replies don't need identifiers. Numbers run consecutively with no gaps: the app renders markdown lists sequentially, so a list numbered 40, 42, 43 shows up as 40, 41, 42 and my answers land on the wrong items. Re-asked leftovers get fresh consecutive numbers, never their old ones; sub-items stay letters inside a line, not a nested list.
 - **Brief first, then ballot.** Findings, reasoning and recommendations go in prose *above* the numbered list; each numbered item is the decision itself, ideally one line.
 - **Compressing a question moves its "why" up, never deletes it.** If a fact matters enough to state, it stays on the page — just above the list rather than inside it.
 - **Mid-run questions go through the question tool.** When you stop partway through a run for one or two questions, ask them with the question tool so I get a notification. Long question batches stay as a numbered list in chat.

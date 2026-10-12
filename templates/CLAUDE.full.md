@@ -22,6 +22,7 @@
 ## Code Hygiene
 - **Comments explain *why*, not *what*** — most of the valuable ones record a failure that actually happened. Never strip them to "clean up"; a refactor should leave comment density where it was or higher.
 - **Module invariants are stated, and kept.** What a module never touches, what it alone writes, what it never commits — written in the Codebase Map. Moving code between modules is exactly what violates one by accident, so check them when you do.
+- **Placeholders for personal identifiers in docs** — contact/sender names, Wi-Fi SSIDs, MAC addresses and the like. The repo, and anyone reading it, doesn't need them to understand anything.
 - **TODOs stay rare** (aim for none), with zero `FIXME`/`HACK`/`XXX` and no commented-out code.
 
 ## Commands
@@ -51,7 +52,7 @@ If I'm clearly in one phase but didn't invoke it, infer and load that **one** ph
 - Prefer asking me over reading large, token-expensive docs. Only open those if I point you to them or say broader context is needed.
 
 ## When Asking Questions
-- Always **number** questions (use sub-letters when nesting, e.g. 1, 2a, 2b) so I can reply item-by-item. This applies to any list I'll respond to point-by-point; plain prose replies don't need identifiers.
+- Always **number** questions (use sub-letters when nesting, e.g. 1, 2a, 2b) so I can reply item-by-item. This applies to any list I'll respond to point-by-point; plain prose replies don't need identifiers. Numbers run consecutively with no gaps: the app renders markdown lists sequentially, so a list numbered 40, 42, 43 shows up as 40, 41, 42 and my answers land on the wrong items. Re-asked leftovers get fresh consecutive numbers, never their old ones; sub-items stay letters inside a line, not a nested list.
 - **Brief first, then ballot.** Findings, reasoning and recommendations go in prose *above* the numbered list; each numbered item is the decision itself, ideally one line. A question carrying its own justification inline is hard to scan and hard to answer item-by-item — the identical list, re-asked with the rationale lifted out, reads far more clearly.
 - **Compressing a question moves its "why" up, never deletes it.** If a fact matters enough to state, it stays on the page — just above the list rather than inside it. This is a rule about placement, not about asking less: never drop a real consideration to make a list look tidy.
 - **Mid-run questions go through the question tool.** When you stop partway through a run for one or two questions, ask them with the question tool so I get a notification — I'm often away while a phase runs. Long question batches (the start of a Plan session, setup) stay as a numbered list in chat; they're too long for the tool.
