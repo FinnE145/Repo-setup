@@ -14,7 +14,7 @@
   "## fe-pro
   - **`~/SERVER.md` on `fe-pro` is authoritative for the machine.** Read it before adding, moving, starting or stopping anything on the box{{, or before designing anything that touches <what this repo touches>}}. {{READ_HOW}}
   - **Anything this repo changes on the machine** — a new service, unit, stack, bind, user/group, package — **updates `SERVER.md` in the same piece of work.** Facts about this repo itself go in the repo, with at most a one-line pointer in `SERVER.md`.
-  - The clock is **UTC** (the machine is in Ontario; `TZ=America/Toronto date` for local).
+  - The clock is **UTC** (the machine is in Ontario; `TZ=America/Toronto date` for local). Dates and deadlines Finn gives are his local time: compare them against the local date, never `date` alone.
   - **`sudo` needs Finn's password** — anything privileged is his to run: give him the exact command.
   - **Never stop or restart another service** to free a port, memory or anything else — ask. (Minecraft in particular needs its long stop timeout or the world corrupts.)"
 - `{{READ_HOW}}`, by where the checkout lives:

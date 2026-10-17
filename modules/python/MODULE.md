@@ -15,5 +15,6 @@
   - `pytest.ini` — puts the repo root on `sys.path`.
   - `tests/test_conventions.py` — enforces the one-line source comment on every test. Ship it in every Python repo with tests; the phases say this convention is enforced mechanically, and this is what makes that true.
   - `tests/test_codebase_map.py` — full mode only (lite has a map but no Verify step maintaining it). Set `MODULE_DIRS` to where the repo's own modules live, and `BARE_NAME_DIRS` to any directory whose bullet in the map names files by bare name.
+  - `tools/mutate.py` — full mode only: the mutation runner Verify uses (a spec of `(file, old, new, tests)`, private copies, parallel, a timeout per mutation). Check its `IGNORE` list against the repo (the venv, caches, anything big or private).
   - Add `pytest` (and `pytest-cov`, in full mode) to `requirements.txt`.
-- **Codebase Map:** a `tests/` bullet naming `test_conventions.py` and `test_codebase_map.py` and what they enforce.
+- **Codebase Map:** a `tests/` bullet naming `test_conventions.py` and `test_codebase_map.py` and what they enforce, and in full mode a `tools/mutate.py` bullet (never edits the real tree).

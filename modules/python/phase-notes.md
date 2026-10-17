@@ -10,4 +10,5 @@ Read only the section for the phase you're in.
 
 ## Verify
 - **Mutation restore, Python specifically:** Python validates a `.pyc` on `(source mtime, source size)`, so restoring a mutated file by moving a backup over it — an mtime inside the same second as the mutated write — leaves a same-size mutation (`1` -> `2`, `MAX` -> `MIN`) running from **mutated bytecode under a clean source tree**, invisible to `grep`, `git diff` and `git status`. **Restore by writing the original back, and run the child with `PYTHONDONTWRITEBYTECODE=1`.** It has already cost one session an hour of chasing a bug that did not exist.
+- **Mutation runner:** `tools/mutate.py SPEC.py -j <n>`, where the repo ships it: write the session's mutations as a spec file and run it from the venv. It restores by writing the original back with bytecode off, so the trap above is handled; a hand-made mutation still has to follow it.
 - **Coverage:** the Coverage command with `--cov=<each module this session touched>`.
