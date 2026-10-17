@@ -23,6 +23,9 @@ Coverage is blind to the second by definition, and mutation is the only thing th
 - **When a finding is "a whole category of thing is unobserved", enumerate the category — don't sample it.** Eleven sampled mutations were fixed and the write-up read as complete, while twice as many instances of the identical class sat one key over.
 - **A finding fixed at the level it was found leaves the level below untouched.** Making a column observed did not make the computation behind it observed; a later sweep found the survivors there. "Is this read?" and "is this right?" are different questions.
 - **A pleasing number is a prompt to check the instrument.** When measurement tooling was wrong, the symptom was usually a *better* number. Pre-flight on a green baseline, and run long batches from a frozen copy so editing the live tree can't corrupt them.
+- **Mutate what the session's mutation spec doesn't name.** Extra mutants found a queue that never wrapped, a redraw nothing tested and ids nothing read, all behind a spec that killed 121 of 121.
+- **Equivalent mutants are a finding about the code.** Survivors that were a clamp applied by two layers meant one layer should go, or the mutant is listed as equivalent in the spec with the reason.
+- **When a green result follows a change, check the change was built.** A build cache keyed on file times ran old code when one machine's clock was 6 hours slow: a green run that tested nothing new, and a flash of the old binary.
 - **Probe unordered results empirically; don't reason about them.** A query with no `ORDER BY` broke ties lexically, not by insertion order — the opposite of the obvious guess. Build it, print it, then assert.
 - **When a temporary safety net is doing the catching** (e.g. throwaway snapshots during a refactor), the finish line is not "the compare is clean" but "the compare is redundant" — check the permanent suite catches the same breakage before the net is deleted, because afterwards the measurement is impossible.
 
@@ -31,6 +34,7 @@ Coverage is blind to the second by definition, and mutation is the only thing th
 - **Dummy credentials and blocked network** at the same point, which also makes it structurally impossible for a test to build a real authenticated client.
 - **Nothing real committed as fixture data.** Hand-built builders make the tiny purposeful rows tests want.
 - **Freeze the clock** for anything whose output depends on "now".
+- **Capture the real producer's output and replay it through the real code in a test.** The first replay of a server's own messages found at once what hand-written fixtures hid: it sent an id as a number and the parser required a string, so every real message would have been dropped. Capture only the live output of a run you started, and check the file holds no real data before it goes in the repo.
 - **Background work runs inline or is joined before asserting**, through one shared fixture every such test uses — otherwise a leaked thread or a claimed lock surfaces as a failure somewhere unrelated.
 - **Route/page tests in two layers with different lifespans.** Permanent: non-error status *plus* semantic assertions about what is on the page. Ephemeral: byte-exact golden snapshots, captured for one specific refactor and deleted after — a permanently maintained byte-exact suite fails on every feature for legitimate reasons, and **a test that routinely fails legitimately gets regenerated reflexively, at which point it protects nothing.**
 
