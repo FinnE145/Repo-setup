@@ -49,6 +49,7 @@ When it lands, Verify rewrites the header and first line as:
 ## X — Short title ✅ DONE
 
 **Specced → `docs/specs/<feature>-X.md`.** That spec is authoritative; the summary below is the shape, not the detail.
+**Time:** estimated <implement / verify>; took <plan / implement / verify, from commit times>, <Finn's hands-on time>.
 -->
 
 ---

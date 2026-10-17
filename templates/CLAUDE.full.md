@@ -29,13 +29,17 @@
 {{OS_NOTE: if the repo is worked on from both Windows and macOS/Linux, add: "Commands below give a variant per OS where they differ — use the one for the OS you're running on."}}
 - **Run:** {{RUN_COMMAND, or "none"}}
 - **Dev port:** {{DEV_PORT, or "none"}}
-- **Test:** {{TEST_COMMAND, or "none yet — record it here verbatim once it exists"}}. `/flow implement` runs it before handing off and `/flow verify` gates the finish-up on it.
+- **Test:** {{TEST_COMMAND, or "none yet — record it here verbatim once it exists"}}. `/flow implement` runs it before handing off and `/flow verify` gates the finish-up on it. If a full run can outlast a tool call's 2-minute default, give the call a longer timeout or run it in the background: a run killed mid-way skips its teardown.
 - **Coverage:** {{COVERAGE_COMMAND, scoped by module, or "none"}}
 - Lint / format: {{LINT_COMMAND, or "none"}}
 - **Deploy:** {{DEPLOY_COMMAND, or "none"}}
+- **Slow commands carry a measured time.** Any command here that takes more than a few seconds (the suite, a mutation run, a build, a flash) says how long it took and when that was measured, e.g. "about 3 minutes (2026-10-14)". Time it the first time it runs, or after it changes a lot, and write it here.
 
 ## Tests
 The suite's whole value is whether a test can **fail**. A green test that a broken implementation would also satisfy is the most common defect there is — it turned up in every session of the test-health pass these rules come from, without exception. Two questions, always: *of each test*, what would a wrong implementation have produced here? *Of each module*, what does it produce — a stored column, a returned key, a branch — that no test reads at all? The second is not a refinement of the first, and the first cannot reach it. **Mutation is the only instrument that finds either**; coverage is structurally blind to the second, since code producing an unread value executes exactly as if it were read. `/flow implement` carries the rules for writing them and `/flow verify` for checking them.
+
+## Time Estimates
+- **Estimate from measurements, never from how long a person would take.** Your sense of time comes from people working by hand, and you can't see how long your own turns take. Build an estimate from what's recorded: the measured times in *Commands*, and the actual durations of past steps in the roadmap (each landed step records its own). Give two numbers: wall time, and my hands-on time (approvals, sudo, watching a device). Where nothing recorded covers the work yet, run `date` when you start and when you estimate, so you can see how far off you are and say so. I use estimates to judge whether something fits in this session, how long I need to be at hand, and sometimes how a whole step fits around my quota.
 
 ## The Workflow: Plan → Implement → Verify
 Work moves through three phases, each in its own chat, each **question-driven**. Every phase's specific rules live in the `flow` skill — invoke it at the start of the chat:
@@ -56,6 +60,8 @@ If I'm clearly in one phase but didn't invoke it, infer and load that **one** ph
 - **Brief first, then ballot.** Findings, reasoning and recommendations go in prose *above* the numbered list; each numbered item is the decision itself, ideally one line. A question carrying its own justification inline is hard to scan and hard to answer item-by-item — the identical list, re-asked with the rationale lifted out, reads far more clearly.
 - **Compressing a question moves its "why" up, never deletes it.** If a fact matters enough to state, it stays on the page — just above the list rather than inside it. This is a rule about placement, not about asking less: never drop a real consideration to make a list look tidy.
 - **Mid-run questions go through the question tool.** When you stop partway through a run for one or two questions, ask them with the question tool so I get a notification — I'm often away while a phase runs. Long question batches (the start of a Plan session, setup) stay as a numbered list in chat; they're too long for the tool.
+- **Commands go in the chat, never only in a doc.** I don't read specs, READMEs or tests, only the chat. Anything I have to run goes in the reply as the exact command, real paths filled in, one per fenced block, saying where to run it if it needs a TTY or my password. Docs still get updated, but they are never the delivery.
+- **Text written beside the task list, the question tool or the wrap-up box never reaches me.** The desktop app draws those tools as their own interface and drops any text in the same message, with no way to open it. For the question tool and the wrap-up box, put the context in the tool itself (the question's own text, the recap); otherwise put it in a message of its own with no tool call. This is about where text goes, not when: say a thing when it's relevant, never hold it back for the end.
 
 <!-- flow:modules — module sections are inserted here (frontend, external constraints, deploy, …) -->
 

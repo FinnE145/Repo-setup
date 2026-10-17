@@ -28,11 +28,15 @@ This repo runs the **lite** setup: no Plan/Implement/Verify phases, no specs, no
 - **Run:** {{RUN_COMMAND, or "none"}}
 - **Dev port:** {{DEV_PORT, or "none"}}
 - **Test:** {{TEST_COMMAND, or "none"}} — run it before telling me you're done, whenever there is one.
+- **Slow commands carry a measured time.** Any command here that takes more than a few seconds (the suite, a mutation run, a build, a flash) says how long it took and when that was measured, e.g. "about 3 minutes (2026-10-14)". Time it the first time it runs, or after it changes a lot, and write it here.
 
 <!-- flow:lite-tests — keep this section only if the repo has a Test command -->
 ## Tests
 A test's whole value is whether it can **fail**. Ask of each test what a wrong implementation would have produced, and of each module what it produces that no test reads at all. Write expected values as literals, never read back off the code under test. Never weaken or delete a test to get a green run.
 <!-- /flow:lite-tests -->
+
+## Time Estimates
+- **Estimate from measurements, never from how long a person would take.** Your sense of time comes from people working by hand, and you can't see how long your own turns take. Build an estimate from what's recorded: the measured times in *Commands*. Give two numbers: wall time, and my hands-on time (approvals, sudo, watching a device). Where nothing recorded covers the work yet, run `date` when you start and when you estimate, so you can see how far off you are and say so. I use estimates to judge whether something fits in this session, how long I need to be at hand, and sometimes how a whole step fits around my quota.
 
 ## No Assumptions & the Stop-and-Ask Rule
 - Never assume behavior, versions, libraries, or intent I haven't stated. If something is undefined, ask.
@@ -45,6 +49,8 @@ A test's whole value is whether it can **fail**. Ask of each test what a wrong i
 - **Brief first, then ballot.** Findings, reasoning and recommendations go in prose *above* the numbered list; each numbered item is the decision itself, ideally one line.
 - **Compressing a question moves its "why" up, never deletes it.** If a fact matters enough to state, it stays on the page — just above the list rather than inside it.
 - **Mid-run questions go through the question tool.** When you stop partway through a run for one or two questions, ask them with the question tool so I get a notification. Long question batches stay as a numbered list in chat.
+- **Commands go in the chat, never only in a doc.** I don't read specs, READMEs or tests, only the chat. Anything I have to run goes in the reply as the exact command, real paths filled in, one per fenced block, saying where to run it if it needs a TTY or my password. Docs still get updated, but they are never the delivery.
+- **Text written beside the task list, the question tool or the wrap-up box never reaches me.** The desktop app draws those tools as their own interface and drops any text in the same message, with no way to open it. For the question tool and the wrap-up box, put the context in the tool itself (the question's own text, the recap); otherwise put it in a message of its own with no tool call. This is about where text goes, not when: say a thing when it's relevant, never hold it back for the end.
 
 <!-- flow:modules — module sections are inserted here (frontend, external constraints, deploy, …) -->
 
