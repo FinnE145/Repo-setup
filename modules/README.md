@@ -10,6 +10,9 @@ Setup reads this index, then only the `MODULE.md` of each module that applies. E
 | `protected-data` | the code touches something that must never be corrupted (hand-made data, a live account it can write to, a device), or an external API with hard limits | Plan, Implement, Verify |
 | `fe-pro` | it runs on or deploys to `fe-pro` (any way — stack, host service, the machine's own interfaces) | — |
 | `docker-fe-pro` | it deploys to `fe-pro` as a Docker stack (requires `fe-pro`) | — |
+| `firmware` | the repo carries firmware for a microcontroller board | Plan, Implement, Verify |
+| `two-checkouts` | a solo repo is worked on from two checkouts on different machines, each owning part of the tree | — |
+| `laptop` | it's worked on from Finn's Windows laptop in the Claude desktop app | — |
 | `team` | the repo is shared with other people | Plan, Verify |
 
-New modules (firmware, another language, another deploy target) usually arrive through `/flow harvest`, once a repo has worked out its conventions.
+New modules (another language, another deploy target) usually arrive through `/flow harvest`, once a repo has worked out its conventions.

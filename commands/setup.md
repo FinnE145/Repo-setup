@@ -38,7 +38,7 @@ List, one line each: the mode, the modules, and every file you'll create or chan
 ## 5. Write
 - **`CLAUDE.md`** from `templates/CLAUDE.full.md` or `templates/CLAUDE.lite.md`:
   - Fill every `{{…}}` slot from Finn's answers. A slot with no answer gets the template's stated "none" form, never an invented value. **Leave no `{{` behind** — the phases treat a leftover slot as missing and stop to ask about it.
-  - Apply each module's "What it adds": sections go at the `<!-- flow:modules -->` marker; the `team` module replaces the `flow:git` block.
+  - Apply each module's "What it adds": sections go at the `<!-- flow:modules -->` marker; the `team` module replaces the `flow:git` block, and `two-checkouts` edits it.
   - Keep the `<!-- flow:… -->` markers — `/flow update` uses them to find sections.
   - **Codebase Map:** on an existing codebase, build it from the real tree (`ls` it), one bullet per module or directory that matters, each saying what it owns — this is the first thing every later session reads. On an empty repo, leave the template's entries and the "Rest TBD" line.
   - Lite: drop the `flow:lite-tests` section if there's no test command.
