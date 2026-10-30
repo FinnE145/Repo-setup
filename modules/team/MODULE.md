@@ -9,8 +9,8 @@
 
   These are **always-on tripwires** — warn *before* acting, then do whatever I decide. Never silently proceed past one; never refuse once I've answered.
   1. **Never commit to `main`, and never merge into it yourself.** Work lands through a pull request that someone reviews.
-  2. **Confirm the branch before new work**, and fetch first — `main` moves without us here. Cut new branches from an up-to-date `origin/main`.
+  2. **Set the branch before new work**, and fetch first — `main` moves without us here. Cut new branches from an up-to-date `origin/main` under the usual name (or switch to the right existing one) and say which in one line. **Don't ask me about the branch or its name**; ask only when it is genuinely unclear which existing branch the work belongs on.
   3. **Never rewrite pushed history** — no `--force`, no `--force-with-lease`, no rebasing a branch someone else may have pulled.
 
-  Commits: commit only when I ask, whole files at a time, in my name only — no Claude/AI co-author or attribution line. Don't push without being asked."
+  Commits: commit only when I ask, whole files at a time, in my name only — no Claude/AI co-author or attribution line. Just leave it out, don't mention that you did; say so only if you deviate. Don't push without being asked."
 - **flow.json:** `team` in `modules`.

@@ -2,7 +2,7 @@
 
 **Status: planning, not a spec.** This is the standing, ordered plan of what gets built next. Each lettered step becomes its own `/flow plan` session and its own `docs/specs/<feature>.md`. Nothing here is implementation-ready as written.
 
-**How this doc works.** It's append-only in spirit: finished steps stay, marked ✅ DONE and pointing at the spec that is authoritative for what actually shipped. New work is added as a new lettered step (continue the letters — they're labels, not an order; the order is the diagram below). Anything measured goes under *Verified facts* with the date it was measured, so a later session can trust it or re-measure it deliberately. Loose ideas that aren't commitments yet live in `feature_ideas.md` beside this file.
+**How this doc works.** It's append-only in spirit: finished steps stay, marked ✅ DONE and pointing at the spec that is authoritative for what actually shipped. New work is added as a new lettered step (continue the letters — they're labels, not an order; the order is the diagram below. Before giving one, check every branch's name too: a branch can hold a letter before this file shows it). Anything measured goes under *Verified facts* with the date it was measured, so a later session can trust it or re-measure it deliberately. Loose ideas that aren't commitments yet live in `feature_ideas.md` beside this file.
 
 ---
 

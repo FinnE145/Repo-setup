@@ -1,6 +1,6 @@
 # Verify phase
 
-Fresh chat that checks a completed feature against its spec, then does the finish-up. You review and report; you make fixes **only with Finn's explicit confirmation**, otherwise hand back to a new implement chat.
+Fresh chat that checks a completed feature against its spec, then does the finish-up. You review and report; you make fixes **only with Finn's explicit confirmation** (except what is plainly wrong or minor, *Review*), otherwise hand back to a new implement chat.
 
 ## First action: check the model
 Verify runs on **Opus** — any Opus version; check the family, not the version string. Check this *before anything else* — before resolving what you're verifying, before reading a single file. Read it straight off the environment block in your system prompt ("You are powered by the model named…"). **No command — don't shell out for this.**
@@ -30,7 +30,17 @@ That block is written at session start, so it's a *fresh-session* check. If Finn
 - Run the app and confirm the feature works. Prefer driving the real behavior over trusting the code.
 - **Hand focus/blur-dependent or final-visual checks to Finn** rather than engineering synthetic-event workarounds — a programmatic `blur()` won't fire without real OS focus, so it's wasted effort. Batch such manual checks to the end. An ungated harness for *objective* checks (dimensions, DOM state) is fine — delete it when done.
 - **Ask how long Finn can watch before planning checks he does by hand**, and run them as short rounds: a numbered "you should see" list, a question that pauses until he's watching, then the action. Do everything that can be read from logs or state afterwards, without him. Check beforehand that the accounts and permissions the checklist needs exist.
-- Report findings. Fix only what Finn confirms; if bigger work is needed, hand back to a new implement chat.
+- Report findings. Fix only what Finn confirms, apart from what is plainly wrong or minor (below); if bigger work is needed, hand back to a new implement chat.
+- **Fix what is plainly wrong or minor without asking**: a test written wrong, a stale line in the roadmap or a spec that the code and its comment contradict, a comment that says the opposite of the code, a typo, mojibake. Fix it, then list each in the report so Finn can object. Still ask when two things conflict and it isn't obvious which one is right, and before any change to behaviour.
+
+## When Finn steps away
+Finn often walks away while a phase runs. When he says he's stepping away, he isn't at hand until he's back:
+- Carry on with everything that runs by itself, above all the long work: builds, flashes that put nothing at risk, the suite, mutation runs, coverage.
+- Plan nothing that needs his eyes, ears or hands: no rounds at a device, no `sudo`.
+- Where a question has a safe, reversible default, take it and note it; hold the rest as one numbered batch for his return.
+- Stop only for a decision that is his and blocks everything else, through the question tool, in one line that reads well on a phone.
+
+**Telling when he's back is a judgement.** A one-off reply, above all a short answer to something you asked, may come from his phone: stay in the mode. Several messages, a longer or more involved one, a comment on something physically there (how a device looks or works), or saying he's back are good signs he is. In doubt, keep working and ask him to confirm he's back, rather than blocking on it.
 
 ## Finish-up (only when Finn says so)
 **The suite must pass before any of this.** The Test command, green, on the branch as it stands — this is the gate, and it is the reason the suite exists: regression coverage that only runs when someone remembers is not coverage. Verify is exactly where "looks good, finish up" happens, so this is where it is enforced. A failure is a finding to report, never something to skip past or to fix by weakening the test. (If the repo has no Test command, say so before finishing up rather than passing the gate silently.)
@@ -43,4 +53,4 @@ When Finn says finish up / looks good, and once verification and the suite have 
 5. Push — this is the one sanctioned push, and only when Finn has asked to finish up.
 6. Leave the feature branch in place by default — a feature *category* usually accrues more work later, so `feat/*` branches are kept. Only delete a branch that's a genuine one-off (a `chore/`/`fix/` task that won't recur as the same thing), and only if Finn wants it gone.
 7. **Stop any dev server this session started** (the dev port, CLAUDE.md → Commands) — the Review step above runs the app, and that server must not outlive the session. Don't leave it occupied for whatever comes next.
-8. **Read `docs/Planning/roadmap.md` and tell Finn what's next** — the next few steps in order, one line each, said in your own words from the roadmap's own sections. This is the last thing you do, and it exists because the roadmap is the standing plan but nobody reads it at the *end* of a session, which is exactly when the next step gets chosen. Name each step by its letter and title, say in one line what it is, and flag anything that gates it or that this session's work just changed. Three or four is usually right — enough to choose from, not a recitation of the file. If the roadmap's order looks wrong now because of what just landed, say so rather than reading it out unchanged.
+8. **Read `docs/Planning/roadmap.md` and tell Finn what's next** — the next few steps in order, one line each, said in your own words from the roadmap's own sections. This is the last thing you do, and it exists because the roadmap is the standing plan but nobody reads it at the *end* of a session, which is exactly when the next step gets chosen. Name each step by its letter and title, say in one line what it is, and flag anything that gates it or that this session's work just changed. Three or four is usually right — enough to choose from, not a recitation of the file. If the roadmap's order looks wrong now because of what just landed, say so rather than reading it out unchanged. Then read `docs/Planning/feature_ideas.md` and name any idea the finished step has unblocked or made relevant, one line each, or say there are none.

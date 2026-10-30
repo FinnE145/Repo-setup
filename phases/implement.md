@@ -41,6 +41,15 @@ If the port is occupied, **stop and flag it to Finn before writing any code** �
 - **One try, then ask.** If an approach fails on the first attempt, stop and ask — no second approach, no layered hacky workarounds. Surface the problem.
 - Number questions (sub-letters when nesting). KISS everywhere except security and the hard requirement in CLAUDE.md's *Keep It Simple* (if it names one), which get done fully and properly.
 
+## When Finn steps away
+Finn often walks away while a phase runs. When he says he's stepping away, he isn't at hand until he's back:
+- Carry on with everything that runs by itself, above all the long work: builds, flashes that put nothing at risk, the suite, mutation runs, coverage.
+- Plan nothing that needs his eyes, ears or hands: no rounds at a device, no `sudo`.
+- Where a question has a safe, reversible default, take it and note it; hold the rest as one numbered batch for his return.
+- Stop only for a decision that is his and blocks everything else, through the question tool, in one line that reads well on a phone.
+
+**Telling when he's back is a judgement.** A one-off reply, above all a short answer to something you asked, may come from his phone: stay in the mode. Several messages, a longer or more involved one, a comment on something physically there (how a device looks or works), or saying he's back are good signs he is. In doubt, keep working and ask him to confirm he's back, rather than blocking on it.
+
 ## Writing tests
 A test's whole value is whether it can **fail**. A green test that a broken implementation would also satisfy is worth no more than a tautology, and it is harder to spot because it passes and cites a real spec clause. The test-health pass these rules come from found this defect in every session it ran without exception — treat it as a new test's default state, not a rare slip.
 

@@ -18,21 +18,31 @@ That block is written at session start, so it's a *fresh-session* check. If Finn
 4. Any CLAUDE.md value a later step needs (a command, the dev port) that is missing or still reads `{{…}}` counts as absent — when you reach that step, name it and ask rather than guessing.
 
 ## Then settle the branch
-Before reading any code, confirm where this work lives — a fresh session inherits whatever branch was last checked out, likely the wrong one.
-1. Check `git branch --show-current`.
-2. Propose a fresh `feat/<slug>` cut from up-to-date `main` (derive `<slug>` from the feature; confirm it), or a switch to the existing branch this belongs on. **When the work is a roadmap step, the slug ends with that step's letter** — e.g. `feat/entity-pages-K`, `feat/better-search-L`. Non-roadmap work carries no suffix.
+Before reading any code, set where this work lives — a fresh session inherits whatever branch was last checked out, likely the wrong one. **Don't ask Finn about the branch or its name**; ask only when it is genuinely unclear which existing branch the work belongs on.
+1. Pull, then check `git branch --show-current`.
+2. Cut a fresh `feat/<slug>` from up-to-date `main` (derive `<slug>` from the feature), or switch to the existing branch this belongs on, and say which in one line. **When the work is a roadmap step, the slug ends with that step's letter** — e.g. `feat/entity-pages-K`, `feat/better-search-L`. Non-roadmap work carries no suffix.
+   - **Before giving a letter, pull, then check the roadmap and every branch's name, local and remote** (`git fetch`, then `git branch -a`). A letter is taken when the roadmap uses it **or** when any branch's name ends in it: a branch can hold a letter long before its step reaches the roadmap. A fix that is not a roadmap step takes no letter at all.
    - **One branch per letter, and a sub-letter stays on its letter's branch.** L2 is planned, built and verified on `feat/better-search-L`, not on a new `feat/…-L2`. A sub-letter is follow-up work on a step that already landed, so keeping it on the same branch keeps that step's whole history in one place. It still gets its own spec, its own three phases and its own commits.
-3. Wait for Finn's OK, then dive in.
+3. Dive in.
 
 The spec is the **first commit of the step** (on a fresh branch, the branch's first commit); implementation commits stack on top later.
 
 ## How to ask
 - **Question-driven, no assumptions.** Never decide anything Finn hasn't stated — scope, UX, data model, permissions, anything outward. If something's undefined, ask.
 - **Finn doesn't read specs or code.** The planning chat is his review; the spec is only the input for Implement, so never treat a written spec as reviewed. Ask him about outward architecture and behaviour: what a component does and doesn't do, how it behaves for the user and for other components, what it touches on the machine, and anything touching CLAUDE.md's hard rules. Internals only you see (internal names, method lists and signatures, file-format details, refusal and edge-case mechanics, placeholder values) are yours to decide carefully and write into the spec; don't put them to him.
-- **Size the step first.** If a roadmap step looks small, say how much work it is up front: Finn may choose to skip the spec and the three-phase split and do it all in this session. A step done that way still confirms the branch, asks the outward questions as one numbered batch, proves its tests can fail, updates the docs and roadmap, and asks before commit, merge and push. Having no spec of its own, it amends the authoritative spec of the thing it changes, and the roadmap step is marked done pointing there.
+- **Size the step first.** If a roadmap step looks small, say how much work it is up front: Finn may choose to skip the spec and the three-phase split and do it all in this session. A step done that way still sets the branch, asks the outward questions as one numbered batch, proves its tests can fail, updates the docs and roadmap, and asks before commit, merge and push. Having no spec of its own, it amends the authoritative spec of the thing it changes, and the roadmap step is marked done pointing there.
 - **Batch foreseeable questions up front** as one numbered list — everything you can already see needing a decision from the brain-dump. Reserve trickled, one-off questions for things that genuinely only surface later in the conversation. It's fine to think you're done and surface more — say "last batch…" as many times as needed; Finn won't mind.
 - Number questions (sub-letters when nesting: 1, 2a, 2b). If a message mixes discussion points with questions, letter the points (A, B, C) and number the questions (1, 2, 3).
 - Prefer asking Finn over reading large, token-expensive docs. If CLAUDE.md names a constraints doc for an external service or API, check it before proposing anything that reads or writes through that service — flag any hard limit rather than designing around it.
+
+## When Finn steps away
+Finn often walks away while a phase runs. When he says he's stepping away, he isn't at hand until he's back:
+- Carry on with everything that runs by itself, above all the long work: builds, flashes that put nothing at risk, the suite, mutation runs, coverage.
+- Plan nothing that needs his eyes, ears or hands: no rounds at a device, no `sudo`.
+- Where a question has a safe, reversible default, take it and note it; hold the rest as one numbered batch for his return.
+- Stop only for a decision that is his and blocks everything else, through the question tool, in one line that reads well on a phone.
+
+**Telling when he's back is a judgement.** A one-off reply, above all a short answer to something you asked, may come from his phone: stay in the mode. Several messages, a longer or more involved one, a comment on something physically there (how a device looks or works), or saying he's back are good signs he is. In doubt, keep working and ask him to confirm he's back, rather than blocking on it.
 
 ## Writing the spec
 - Only start writing once there is **nothing left to decide**.

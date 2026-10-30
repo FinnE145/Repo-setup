@@ -1,6 +1,6 @@
 # Module: firmware
 
-**Applies when** the repo carries firmware for a microcontroller board (Arduino, ESP-IDF, Pico SDK, …), usually beside the server it talks to. Distilled from desk-bridge's dashboard (an ESP32-S3 display with LVGL, and a Pico 2 input module), roadmap steps E and E2, 2026-10-13 to 10-16. Usually comes with `two-checkouts` (the board is plugged into a different machine from the server code) and, on Finn's laptop, `laptop`. The phase-notes point at `lessons/firmware.md` for the hardware and library detail.
+**Applies when** the repo carries firmware for a microcontroller board (Arduino, ESP-IDF, Pico SDK, …), usually beside the server it talks to. Distilled from desk-bridge's dashboard (an ESP32-S3 display with LVGL, and a Pico 2 input module), roadmap steps E and E2, 2026-10-13 to 10-16, with lessons added through 10-28. Usually comes with `two-checkouts` (the board is plugged into a different machine from the server code) and, on Finn's laptop, `laptop`. The phase-notes point at `lessons/firmware.md` for the hardware and library detail.
 
 ## What setup asks
 - The board(s), and where the schematic is (a vendor PDF, a link). Pins come from it.
@@ -38,5 +38,6 @@
   - Keep It Simple, after the security bullet:
     "- **Holding a device gives no more power than standing at it.** Physical access beats everything, so a credential stored on the device is not a weakness to engineer around: one account per device, least privilege, and a lost one is cut off by changing its password.
     - **Whatever a device sends is untrusted input**: the server validates it strictly (size first, then known fields, bounded values), and config changes only on the server, never over the wire."
+  - No Assumptions, the *What not to ask* list gains: "- **Flashing the board** when nothing is at risk (a build of the branch, or a debug build put back afterwards): a flash that waits on a question stalls the session for as long as I'm away. Only what needs my hands is asked."
 - **`docs/firmware/board-notes.md`**, a stub: title plus "Reference for {{BOARD}}: the pin map from the schematic, the toolchain, display timing, measured results. Measured or documented facts only, each dated."
 - **`.gitignore`:** `firmware/**/secrets.h`.

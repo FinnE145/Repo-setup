@@ -43,6 +43,9 @@ A test's whole value is whether it can **fail**. Ask of each test what a wrong i
 - **Stop-and-ask (token reduction):** the moment you're unsure or catch yourself weighing alternatives, stop right there and ask — do not keep reasoning through the options first. Ask immediately, get my answer, then continue the train of thought.
 - **One try, then ask.** If an approach doesn't work on the first attempt, stop and ask for direction. Do not try a second approach, and never layer hacky fixes (overrides, workarounds) to force something through. Surface the problem instead of digging deeper.
 - Prefer asking me over reading large, token-expensive docs. Only open those if I point you to them or say broader context is needed.
+- **What not to ask.** These are decided, so do them and say so in a line:
+  - **Anything the repo, a command or a measurement can answer.** Look it up instead.
+  - **Fixing what is plainly wrong or minor**: a test written wrong, a stale line in a doc that the code and its comment contradict, a typo. Fix it and list it in the report. Ask only when two things conflict and it isn't obvious which is right.
 
 ## When Asking Questions
 - Always **number** questions (use sub-letters when nesting, e.g. 1, 2a, 2b) so I can reply item-by-item. This applies to any list I'll respond to point-by-point; plain prose replies don't need identifiers. Numbers run consecutively with no gaps: the app renders markdown lists sequentially, so a list numbered 40, 42, 43 shows up as 40, 41, 42 and my answers land on the wrong items. Re-asked leftovers get fresh consecutive numbers, never their old ones; sub-items stay letters inside a line, not a nested list.
@@ -58,6 +61,6 @@ A test's whole value is whether it can **fail**. Ask of each test what a wrong i
 <!-- flow:git -->
 Solo repo. Warn *before* acting on any of these, then do whatever I decide:
 1. **No committing to `main`** unless it's a tiny fix — say so first if you're about to.
-2. **Commit only when I ask**, whole files at a time, in my name only — no Claude/AI co-author or attribution line.
+2. **Commit only when I ask**, whole files at a time, in my name only — no Claude/AI co-author or attribution line. Just leave it out, don't mention that you did; say so only if you deviate.
 3. **Don't push without being asked.** Merges into `main` are `git merge --ff-only`; if it can't fast-forward, stop and flag it.
 <!-- /flow:git -->

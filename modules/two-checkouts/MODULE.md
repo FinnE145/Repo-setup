@@ -10,6 +10,7 @@
 - **CLAUDE.md → Git Workflow**, inside the `flow:git` block:
   - The first paragraph's opening becomes: "Solo repo, two checkouts (no worktrees): `{{MAIN_CHECKOUT}}` on {{MAIN_MACHINE}} for everything but {{OTHER_FOLDERS}}, and `{{OTHER_CHECKOUT}}` on {{OTHER_MACHINE}} for {{OTHER_FOLDERS}}. Work moves between them only through GitHub: **pull the branch before starting a phase**." The branch-prefix sentence and the rest stay.
   - Tripwire 3 gains: "**The one exception: a step implemented on {{OTHER_MACHINE}} pushes its feature branch at the end of Plan** (asking first, the same way Verify does), so the other machine can pull it; later pushes of that branch happen when I say. Merging into `main` stays Verify's."
+  - A fourth tripwire: "4. **Pull before saying something is missing.** If a spec or branch you were pointed at isn't there, `git fetch --all` and pull the branch, in this checkout, before telling me it's missing: it is usually on the other machine's push. The same before creating a spec or a branch, so its letter is checked against what's really taken."
   - The closing sentence becomes: "This repo is solo, so `--force-with-lease` is safe when a rewrite is the agreed fix, but only for a branch the other checkout hasn't pulled; if it has, ask first."
 - **The other checkout's folder gets its own `CLAUDE.md`** (`{{OTHER_FOLDERS}}/CLAUDE.md`; the `firmware` module writes it when that's the folder). It says the root `CLAUDE.md` applies there too, names the root sections that don't (the main machine's *Commands*, its machine module's section), carries that machine's own commands, and ends with:
   "## Git
@@ -18,3 +19,4 @@
   - a step's branch is pushed at the end of Plan, after asking;
   - push again only when I say, so the other machine can pull."
 - **Root `CLAUDE.md`:** the sections that hold only on the main machine say so in one line (e.g. "On {{OTHER_MACHINE}} this section and *Commands* don't apply: …").
+- **Letters:** before giving a step, spec or branch a letter (`phases/plan.md`), check the other checkout's local branches too (`ssh {{MAIN_MACHINE}} 'cd {{MAIN_CHECKOUT}} && git branch'`, or the other way round), since each checkout has local branches the other has never seen.
