@@ -11,6 +11,7 @@
 - `docs/` — specs and reference. Feature specs at `docs/specs/<feature>.md`; per-feature extra files (sub-specs, notes, verification reports) in `docs/<feature>/`; planning docs in `docs/Planning/`.
 - **"The roadmap" always means `docs/Planning/roadmap.md`** — the standing, ordered plan of what gets built next. Each lettered step becomes its own `/flow plan` session and its own spec; landed steps stay, marked ✅ DONE and pointing at the spec that is authoritative for what actually shipped (read that spec, never the roadmap summary, before touching landed work). It also carries dated measurements that shouldn't be re-derived. Its sibling `docs/Planning/feature_ideas.md` is the loose backlog the roadmap draws from — ideas, not commitments.
 - `.claude/flow.json` — which workflow mode, modules and template version this repo was set up with (`/flow update` reads it). `.claude/flow/<phase>.md`, where present, holds this repo's additions to a phase.
+- **`.claude/flow/for-harvest.md` is where notes for the flow skill go.** When a session learns something other repos should start with (a rule, a trap, a better way to run a phase or a kind of work), or I ask to have something raised at the next `/flow harvest`, add it there under a dated heading. Not anywhere else: not the roadmap, not a doc of its own.
 {{MAP_ENTRIES: one bullet per module, directory or file that matters, each saying what it owns and any invariant it keeps — what it never touches, what it alone writes}}
 - (Rest TBD — update this map as directories are created.)
 

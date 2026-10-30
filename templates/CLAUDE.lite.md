@@ -11,6 +11,7 @@ This repo runs the **lite** setup: no Plan/Implement/Verify phases, no specs, no
 
 ## Codebase Map
 {{MAP_ENTRIES: one bullet per module, directory or file that matters, each saying what it owns}}
+- **`.claude/flow/for-harvest.md` is where notes for the flow skill go.** When a session learns something other repos should start with (a rule, a trap, a better way to do a kind of work), or I ask to have something raised at the next `/flow harvest`, add it there under a dated heading. Not anywhere else.
 - Update this map when you add, move or rename something — it's what a fresh session reads first.
 
 ## Keep It Simple

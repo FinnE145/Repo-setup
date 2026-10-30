@@ -23,6 +23,7 @@ Check, cheaply and in this order, and keep a list:
 - **Full mode — specs:** recent ones missing the provenance header line or the `## Tests` section. Flag; never backfill old specs without asking.
 - **Modules:** whether the module list still fits the repo (a UI appeared, a deploy was added, it became shared), and whether each module's files still match its current template.
 - **Project additions** (`.claude/flow/*.md`): still accurate, and not duplicating something now in the generic phases.
+- **`.claude/flow/for-harvest.md`:** missing → propose it from `templates/for-harvest.md` (and move into it any harvest notes the repo keeps elsewhere). Items that have since landed in the skill or been turned down at a harvest → propose clearing them, leaving the file's header in place; the file itself stays.
 
 ## 5. Report and ask
 Brief first: what changed in the templates, then the drift found, grouped. Then the decisions as one numbered list, one line each — each a proposed change Finn can say yes or no to. Recommend where you have a view; never decide.

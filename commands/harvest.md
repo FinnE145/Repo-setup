@@ -9,6 +9,7 @@ Question-driven: propose, ask, change only what Finn confirms. Runs on any model
 
 ## 2. Find candidates in the repo
 Look where lessons get written down, cheapest first:
+- **`.claude/flow/for-harvest.md`** — the notes sessions and Finn left for this harvest. Every item in it gets a numbered proposal (or a one-line rejection), and items Finn left to discuss are settled with him here. In an older repo without it, look for the same kind of note wherever it ended up (the roadmap, a notes doc).
 - **`CLAUDE.md`** — rules and paragraphs that aren't in the template it was set up from. Most are about this project; some are general rules that happened to be learned here.
 - **`.claude/flow/*.md`** — this repo's additions to a phase. A rule here that doesn't mention anything project-specific is a strong candidate.
 - **The roadmap** — *Cross-cutting notes*, and "Trap:" or "learned the hard way" lines in step sections.
@@ -33,5 +34,8 @@ Brief first, then one numbered item per candidate: where it comes from in this r
 ## 5. Apply and commit
 - Edit this skill's clone with the confirmed changes only. A new module gets a `MODULE.md` (applies-when, what setup asks, what it adds), optional `phase-notes.md` and `files/`, and a row in `modules/README.md`.
 - Commit to the clone's `main` in Finn's name only, when he asks — whole files, one commit per coherent change. **Push only when he says so**; if the push fails (no GitHub auth on this device), say so plainly and leave the commit local.
-- Don't edit the repo you harvested from. Once the lesson is in the template, the repo's own copy is redundant — the next `/flow update` there will notice and ask.
+- Don't edit the repo you harvested from. Once the lesson is in the template, the repo's own copy is redundant — the next `/flow update` there will notice and ask, and clears `.claude/flow/for-harvest.md` of the items that landed or were turned down.
 - Mention which existing repos would pick the change up via `/flow update`, if Finn wants it applied there too.
+
+## 6. Offer the update
+Once the commits are pushed (or left local, if the push failed), offer to run `/flow update` on the repo you harvested from, in this same session: it has everything just decided in context, so it brings the repo in line and clears `for-harvest.md` cheaply.

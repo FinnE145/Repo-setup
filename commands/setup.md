@@ -46,6 +46,7 @@ List, one line each: the mode, the modules, and every file you'll create or chan
   - `docs/Planning/roadmap.md` from `templates/roadmap.md` and `docs/Planning/feature_ideas.md` from `templates/feature_ideas.md`. If Finn has steps in mind already, add them as lettered sections in his words; otherwise leave the roadmap empty and say so.
   - `docs/specs/` (with a `.gitkeep`).
 - **Module files** from each module's `files/`, filled in as its `MODULE.md` says.
+- **`.claude/flow/for-harvest.md`** from `templates/for-harvest.md`, in both modes: where sessions note what other repos should start with, for the next `/flow harvest`.
 - **`.claude/flow.json`** from `templates/flow.json`: the commit from step 1, the mode, the modules, today's date.
 
 ## 6. Commit

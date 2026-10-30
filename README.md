@@ -39,7 +39,7 @@ That's all. `/flow setup`, `/flow update` and `/flow harvest` run `git pull --ff
 SKILL.md            router — reads the argument, loads exactly one phase or command
 phases/             plan.md, implement.md, verify.md
 commands/           setup.md, update.md, harvest.md
-templates/          CLAUDE.full.md, CLAUDE.lite.md, roadmap.md, feature_ideas.md, flow.json
+templates/          CLAUDE.full.md, CLAUDE.lite.md, roadmap.md, feature_ideas.md, for-harvest.md, flow.json
 modules/            per-kind-of-project additions — see modules/README.md
 lessons/testing.md  testing lessons, read only when tests are being written or measured
 ```
@@ -48,4 +48,5 @@ lessons/testing.md  testing lessons, read only when tests are being written or m
 
 - `CLAUDE.md` — with `{{…}}` slots filled and `<!-- flow:… -->` markers kept (update uses them).
 - `.claude/flow.json` — mode, modules, and the commit of this repo it was last synced to.
+- `.claude/flow/for-harvest.md` — notes for the next `/flow harvest`: what other repos should start with, and what Finn wants raised there.
 - Full mode: `docs/Planning/roadmap.md`, `docs/Planning/feature_ideas.md`, `docs/specs/`.
