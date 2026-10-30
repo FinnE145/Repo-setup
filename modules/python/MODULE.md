@@ -7,7 +7,7 @@
 - Whether `venv` + `requirements.txt` is the environment (the default Finn has used), or something else.
 
 ## What it adds
-- **CLAUDE.md → Tech Stack:** the Python version and environment, as stated.
+- **CLAUDE.md → Tech Stack:** the Python version and environment, as stated. Where the venv is built on the system interpreter, add: "A distro upgrade that changes the system Python leaves every venv on it without its packages: rebuild them."
 - **CLAUDE.md → Commands** (give both variants when the repo is worked on from Windows and macOS/Linux):
   - Test — macOS/Linux: `venv/bin/python -m pytest` · Windows: `venv\Scripts\python -m pytest`. `-m` pins the venv interpreter rather than relying on a shim.
   - Coverage — the same with `--cov=<module>` per module touched (needs `pytest-cov`).
