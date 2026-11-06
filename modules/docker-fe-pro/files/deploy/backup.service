@@ -1,10 +1,28 @@
 # Install to /etc/systemd/system/{{NAME}}-backup.service, paired with
 # {{NAME}}-backup.timer (which triggers this; do not `enable` this unit
-# directly). Runs as finne -- the data is owned by uid 1000 on the host.
+# directly). Runs as {{ACCOUNT}}, which owns the data on the host (SERVER.md,
+# "Accounts").
 [Unit]
 Description={{NAME}} database backup (VACUUM INTO, {{RETENTION_DAYS}}-day retention)
 
 [Service]
 Type=oneshot
-User=finne
+User={{ACCOUNT}}
+Group={{ACCOUNT}}
 ExecStart=/srv/stacks/{{NAME}}/repo/deploy/backup.sh
+# Backups 640, readable by finne through the group (deploy.sh's pull).
+UMask=0027
+# data/ must be writable, not read-only: a reader of a WAL-mode database writes its -shm.
+ProtectSystem=strict
+ReadWritePaths=/var/backups/{{NAME}} /srv/stacks/{{NAME}}/data
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictSUIDSGID=yes
+LockPersonality=yes

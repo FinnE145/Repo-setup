@@ -12,10 +12,13 @@ In Cloudflare's DNS for `fmje.dev`, add an **A record** `{{NAME}}` → `fe-pro`'
 
 ## 2. Create `/srv/stacks/{{NAME}}`
 
-The one privileged step — `/srv/stacks` is root-owned. Use `ssh -t`, since `sudo` prompts.
+The one privileged step — `/srv/stacks` is root-owned. Use `ssh -t`, since `sudo` prompts. The stack directory (code,
+compose, env file) is `finne`'s, so deploys need no `sudo`; `data/` belongs to the service's account, {{ACCOUNT}}
+(`SERVER.md`, "Accounts"), so the service can write nothing else.
 
 ```bash
-ssh -t fe-pro "sudo mkdir -p /srv/stacks/{{NAME}} && sudo chown 1000:1000 /srv/stacks/{{NAME}}"
+ssh -t fe-pro "sudo mkdir -p /srv/stacks/{{NAME}} && sudo chown 1000:1000 /srv/stacks/{{NAME}} && \
+  sudo install -d -o {{ACCOUNT}} -g {{ACCOUNT}} -m 750 /srv/stacks/{{NAME}}/data"
 ```
 
 ## 3. Clone the repo
@@ -37,10 +40,10 @@ ssh fe-pro "chmod 600 /srv/stacks/{{NAME}}/{{NAME}}.env"
 **Stop the laptop app first.** For a SQLite database, send it through `VACUUM INTO` rather than copying the file: a stopped app routinely leaves a populated `-wal` beside the `.db`, and copying only the `.db` silently drops every transaction still in it.
 
 ```bash
-ssh fe-pro "mkdir -p /srv/stacks/{{NAME}}/data"
 python3 -c "import sqlite3; c = sqlite3.connect('{{DB_FILE}}'); c.execute('VACUUM INTO ?', ('/tmp/{{NAME}}-transfer.db',)); c.close()"
 rsync -az /tmp/{{NAME}}-transfer.db fe-pro:/srv/stacks/{{NAME}}/data/{{DB_FILE}}
 rm /tmp/{{NAME}}-transfer.db
+ssh -t fe-pro "sudo chown -R {{ACCOUNT}}:{{ACCOUNT}} /srv/stacks/{{NAME}}/data"
 ```
 
 Check row counts match on both sides for a spread of tables before going further. Watch for stored paths that were laptop-relative — they resolve against the container's working directory, not `/data`.
@@ -48,7 +51,7 @@ Check row counts match on both sides for a spread of tables before going further
 ## 6. Set up the backup timer (only with a database)
 
 ```bash
-ssh -t fe-pro "sudo mkdir -p /var/backups/{{NAME}} && sudo chown 1000:1000 /var/backups/{{NAME}}"
+ssh -t fe-pro "sudo install -d -o {{ACCOUNT}} -g {{ACCOUNT}} -m 750 /var/backups/{{NAME}}"
 ssh -t fe-pro "sudo cp /srv/stacks/{{NAME}}/repo/deploy/{{NAME}}-backup.{service,timer} /etc/systemd/system/ && \
   sudo systemctl daemon-reload && \
   sudo systemctl enable --now {{NAME}}-backup.timer"

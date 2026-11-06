@@ -8,6 +8,7 @@
 ## What setup asks
 - **Where the checkout lives:** on `fe-pro`, with Claude Code sessions run on the box over SSH from the laptop (the repo's code runs where it's edited), or on the laptop (Windows, the G14), deploying to the box. This decides how a session reads `SERVER.md` and the repo's OS for every other module.
 - Which parts of the machine the repo touches (a stack, a host service, system D-Bus, the AX10 LAN, …) — so the map and the section below can name them.
+- If it runs a service on the box: **which account** it runs as (SERVER.md, *Accounts*: `svc` unless a reason there applies; a new account is proposed to Finn, never made silently).
 
 ## What it adds
 - **CLAUDE.md**, a section at the `flow:modules` marker:
@@ -15,10 +16,11 @@
   - **`~/SERVER.md` on `fe-pro` is authoritative for the machine.** Read it before adding, moving, starting or stopping anything on the box{{, or before designing anything that touches <what this repo touches>}}. {{READ_HOW}}
   - **Anything this repo changes on the machine** — a new service, unit, stack, bind, user/group, package — **updates `SERVER.md` in the same piece of work.** Facts about this repo itself go in the repo, with at most a one-line pointer in `SERVER.md`.
   - The clock is **UTC** (the machine is in Ontario; `TZ=America/Toronto date` for local). Dates and deadlines Finn gives are his local time: compare them against the local date, never `date` alone.
-  - **`sudo` needs Finn's password** — anything privileged is his to run: give him the exact command.
+  - **Which account runs it:** a service never runs as `finne` (1000, root-equivalent), `agent` or root. The default is `svc` (2003); SERVER.md's *Accounts* says when to propose a new account instead, and the proposal is Finn's decision.
+  - **Privileged work is Finn's.** Sessions on fe-pro run as `agent`: containers and desk units go through `sudo stackctl`, and anything else that needs root is a script in `/srv/fe-pro/review/` that Finn runs with `run-reviewed` (output in `/srv/fe-pro/sudo-logs/`). Deploys that pull new code are Finn's too: push, then give him the exact command.
   - **Never stop or restart another service** to free a port, memory or anything else — ask. (Minecraft in particular needs its long stop timeout or the world corrupts.)"
 - `{{READ_HOW}}`, by where the checkout lives:
-  - **On fe-pro:** "`.claude/settings.json` allows reading it without a prompt." — and add `"Read(//home/finne/SERVER.md)"` to `permissions.allow` in the repo's `.claude/settings.json` (create it if needed). An explicit allow rule rather than a symlink into the repo, because the permission check may follow a symlink to its target outside the repo.
+  - **On fe-pro:** "`.claude/settings.json` allows reading it without a prompt." — and add `"Read(//srv/fe-pro/SERVER.md)"` to `permissions.allow` in the repo's `.claude/settings.json` (create it if needed). An explicit allow rule rather than a symlink into the repo, because the permission check may follow a symlink to its target outside the repo.
   - **On the laptop:** "Read it with `ssh fe-pro cat ~/SERVER.md` — ask first." Commands in that CLAUDE.md are written for Windows (Git Bash or WSL for shell scripts).
 - **CLAUDE.md → Codebase Map:** where the repo's code runs on the box, if it runs there yet.
 - **CLAUDE.md → Commands**, only when the repo installs a sudoers rule (e.g. restarting its own units without a password), beside the commands it allows: "**Only that exact form works:** sudoers matches the command line word for word, so any other spelling (no full path, no `.service`) asks for the password, and from a session fails with `sudo: interactive authentication is required`."

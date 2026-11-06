@@ -10,10 +10,14 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Matches finne's uid:gid on the host, so bind-mounted files under /data stay
-# Finn-owned rather than becoming root-owned.
-RUN groupadd --gid 1000 app && useradd --uid 1000 --gid 1000 --create-home app && chown -R 1000:1000 /app
-USER 1000:1000
+# {{ACCOUNT, default svc}} ({{UID, default 2003}}): fe-pro's service account
+# (SERVER.md, "Accounts"), which owns /srv/stacks/{{NAME}}/data on the host.
+# Never 1000 (finne): that uid is Finn, and root-equivalent. Every writable
+# path is under /data, so /app stays root-owned and the service can't rewrite
+# its own code.
+ENV PYTHONDONTWRITEBYTECODE=1
+RUN groupadd --gid {{UID}} {{ACCOUNT}} && useradd --uid {{UID}} --gid {{UID}} --create-home {{ACCOUNT}}
+USER {{UID}}:{{UID}}
 
 EXPOSE {{PORT}}
 
